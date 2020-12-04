@@ -28,16 +28,22 @@
   )
 
 
+;; PART 2
 ;; Determine the number of trees you would encounter if, for each of
 ;; the following slopes, you start at the top-left corner and traverse
 ;; the map all the way to the bottom:
+;; Right 1, down 1.
+;; Right 3, down 1. (This is the slope you already checked.)
+;; Right 5, down 1.
+;; Right 7, down 1.
+;; Right 1, down 2.
 (def lines (read-file "resources/task3.txt"))
 
 (defn count-trees [lines steps-right]
   (let [
         tree?       #(= \# %1)
         width       (count (nth lines 0))
-        positions   (iterate #(mod (+ steps-right %1) width) 0) ;;  jumps by 3 for each row
+        positions   (iterate #(mod (+ steps-right %1) width) 0) ;;  jumps by given step for each row
         spots       (map nth lines positions)
         trees       (filter tree? spots)
         trees-count (count trees)
@@ -45,17 +51,14 @@
 
     trees-count))
 
-(*(count-trees lines 1)
-(count-trees lines 3)
-(count-trees lines 5)
-(count-trees lines 7)
-(count-trees (take-nth 2 lines) 1))
 
-;; Right 1, down 1.
-;; Right 3, down 1. (This is the slope you already checked.)
-;; Right 5, down 1.
-;; Right 7, down 1.
-;; Right 1, down 2.
+(*
+ (count-trees lines 1)
+ (count-trees lines 3)
+ (count-trees lines 5)
+ (count-trees lines 7)
+ (count-trees (take-nth 2 lines) 1))
+
 
 
 
