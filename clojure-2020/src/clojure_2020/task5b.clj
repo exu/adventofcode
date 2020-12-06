@@ -110,34 +110,32 @@
       (map keyword i) ))
 
 
-  (->> (slurp "resources/task5.txt")
-    (s/split-lines)
-    ;; (take 3 pass)
-    (map parse)
-    (map split)
-    (map calculate-id)
-    (apply max)
-    )
+  (def seats (->> (slurp "resources/task5.txt")
+       (s/split-lines)
+       (map parse)
+       (map split)
+       (map #(assoc % :id (calculate-id %)))
+       ))
 
-  (deftest parse-test
-    (is (= [:B :F :F :F :B :B :F :R :R :R] (parse "BFFFBBFRRR")))
-    (is (= [:B :B :F :F :B :B :F :R :L :L] (parse "BBFFBBFRLL")))
-    )
+   (def row-with-missing-seat (->> seats
+       (group-by :row)
+       (map second)
+       (map (fn [n] {:row ((get n 0) :row) :count (count n)} ))
+       (filter #(< (% :count) 8))
+       first
+       :row
+       ))
 
-  ;; BFFFBBFRRR: row 70, column 7, seat ID 567.
-  ;; FFFBBBFRRR: row 14, column 7, seat ID 119.
-  ;; BBFFBBFRLL: row 102, column 4, seat ID 820.
-  (deftest split-test
-    (is (= {:row 70 :col 7} (split (parse "BFFFBBFRRR"))))
-    (is (= {:row 14 :col 7} (split (parse "FFFBBBFRRR"))))
-    (is (= {:row 102 :col 4} (split (parse "BBFFBBFRLL"))))
-    )
+   (->> seats
+        (filter #(= (% :row) row-with-missing-seat))
+        (sort-by :col)
+        (pprint)
+        )
 
-  (deftest id-test
-    (is (= 567 (calculate-id {:row 70 :col 7})))
-    (is (= 119 (calculate-id {:row 14 :col 7})))
-    (is (= 820 (calculate-id {:row 102 :col 4})))
-    )
+   ;; 629 :) is missing one
+
+
+
 
 
   (run-tests))
