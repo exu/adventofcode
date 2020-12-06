@@ -17,6 +17,7 @@
 ;; The fourth passport is missing two fields, cid and byr. Missing cid is
 ;; fine, but missing any other field is not, so this passport is invalid.
 
+
 (def example "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm
 
@@ -31,17 +32,13 @@ hgt:179cm
 hcl:#cfa07d eyr:2025 pid:166559648
 iyr:2011 ecl:brn hgt:59in")
 
-
-
-
 (defn valid? [passport]
   (or
    (= 8 (count passport))
    (and (= 7 (count passport)) (not-any? #{"cid"} passport))))
 
 ;; standard
-(let [
-      passports (s/split (slurp "resources/task4.txt") #"\n\n")
+(let [passports (s/split (slurp "resources/task4.txt") #"\n\n")
       fields    (map #(s/split %1 #" |\n") passports)
       keys      (for [f fields] (mapv #(subs %1 0 3) f))
       valid     (filter valid? keys)]
@@ -52,6 +49,8 @@ iyr:2011 ecl:brn hgt:59in")
 
 
 ;; as threading macro
+
+
 (as-> (slurp "resources/task4.txt") pass
   (s/split pass #"\n\n")
   (map #(s/split %1 #" |\n") pass)

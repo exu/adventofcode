@@ -47,6 +47,8 @@
 
 
   ;; VALIDATION login
+
+
   (defn valid-cm? [in]
     (let [hgt (get-height in)]
       (and (re-matches #".*cm$" in) (>= hgt 150) (<= hgt 193))))
@@ -64,12 +66,10 @@
   (defn not-valid? [key val]
     (not (valid? key val)))
 
-
   (defn passport-elements-valid? [passport]
     (let [keys (set (->> passport (map first)))]
       (or (= keys #{::byr ::iyr ::eyr ::hgt ::hcl ::ecl ::pid ::cid})
-          (= keys #{::byr ::iyr ::eyr ::hgt ::hcl ::ecl ::pid})))
-    )
+          (= keys #{::byr ::iyr ::eyr ::hgt ::hcl ::ecl ::pid}))))
 
   (passport-elements-valid? example-passport)
 
@@ -81,8 +81,7 @@
                    #(re-matches height-pattern %)
                    (spec/or
                     :cm valid-cm?
-                    :in valid-in?
-                    )))
+                    :in valid-in?)))
   (spec/def ::ecl #{"amb" "blu" "brn" "gry" "grn" "hzl" "oth"})
   (spec/def ::hcl valid-color?)
   (spec/def ::pid valid-pid?)
@@ -91,26 +90,20 @@
   (spec/def ::passport passport-elements-valid?)
 
   (defn passport-valid? [passport]
-    (let [
-          groups (map valid? passport)
+    (let [groups (map valid? passport)
           ;; _ (println "GROUPS:" groups)
           groups-valid (every? true? groups)
           ;; _ (println "valid:" is-valid)
-          spec-valid (spec/valid? ::passport passport)
-          ]
-      (and groups-valid spec-valid))
-    )
-
+          spec-valid (spec/valid? ::passport passport)]
+      (and groups-valid spec-valid)))
 
   (defn valid?
     ([] false)
     ([kv] (spec/valid? (get kv 0) (get kv 1)))
-    ([key val] (spec/valid? key val))
-    )
+    ([key val] (spec/valid? key val)))
 
   (def example-passport '([:clojure-2020.core/hcl "#fffffd"] [:clojure-2020.core/byr "1951"] [:clojure-2020.core/cid "321"] [:clojure-2020.core/iyr "2017"] [:clojure-2020.core/eyr "2022"] [:clojure-2020.core/ecl "brn"] [:clojure-2020.core/hgt "62in"] [:clojure-2020.core/pid "#6ef4e1"]))
   (passport-valid? example-passport)
-
 
   (map println (range 10))
   ;; now mix everyting
@@ -123,37 +116,32 @@
     (frequencies pass)
     ;; (map println pass)
     ;; (count pass)
-
-    )
-
-  )
+    ))
 
 
 
 ;; TESTING
 
 ;; TDD for the rescue :)
+
+
 (do
   (deftest passports
     (deftest parse-test
-      (is (= [::cid "280"] (parse "cid:280")))
-      )
+      (is (= [::cid "280"] (parse "cid:280"))))
     (deftest parse-height-test
       (is (= [123 "cm"] (parse-height "123cm")))
-      (is (= [3289 "in"] (parse-height "3289in")))
-      )
+      (is (= [3289 "in"] (parse-height "3289in"))))
     (deftest ecl-test
       (is (= true (valid? ::ecl "gry")))
-      (is (= false (valid? ::ecl "boooo")))
-      )
+      (is (= false (valid? ::ecl "boooo"))))
     (deftest byr-test
       (is (valid? ::byr "1920"))
       (is (valid? ::byr "1933"))
       (is (valid? ::byr "2000"))
       (is (valid? ::byr "2002"))
       (is (not-valid? ::byr "1919"))
-      (is (not-valid? ::byr "2010"))
-      )
+      (is (not-valid? ::byr "2010")))
     (deftest iyr-test
       (is (valid? ::iyr "2010"))
       (is (valid? ::iyr "2011"))
@@ -161,52 +149,42 @@
       (is (valid? ::iyr "2020"))
       (is (not-valid? ::iyr "2009"))
       (is (not-valid? ::iyr "2021"))
-      (is (not-valid? ::iyr "1233"))
-      )
+      (is (not-valid? ::iyr "1233")))
     (deftest eyr-test
       (is (valid? ::eyr "2020"))
       (is (valid? ::eyr "2030"))
       (is (valid? ::eyr "2021"))
       (is (valid? ::eyr "2029"))
       (is (not-valid? ::eyr "2019"))
-      (is (not-valid? ::eyr "2031"))
-      )
+      (is (not-valid? ::eyr "2031")))
     (deftest hgt-test
       (is (valid? ::hgt "150cm"))
       (is (not-valid? ::hgt "10cm"))
       (is (not-valid? ::hgt "1099cm"))
       (is (valid? ::hgt "60in"))
       (is (not-valid? ::hgt "90in"))
-      (is (not-valid? ::hgt "10in"))
-      )
+      (is (not-valid? ::hgt "10in")))
     (deftest hcl-test
       (is (valid? ::hcl "#fefefe"))
       (is (valid? ::hcl "#dead01"))
       (is (not-valid? ::hcl "green"))
       (is (not-valid? ::hcl "pinky"))
-      (is (not-valid? ::hcl "#fefefe00"))
-      )
+      (is (not-valid? ::hcl "#fefefe00")))
     (deftest pid-test
       (is (valid? ::pid "139209129"))
       (is (valid? ::pid "000000009"))
       (is (not-valid? ::pid "12abcdef0"))
       (is (not-valid? ::pid "000 000 000"))
       (is (not-valid? ::pid "aaaa"))
-      (is (not-valid? ::pid " 000000001 "))
-      )
-    )
+      (is (not-valid? ::pid " 000000001 "))))
+
   (run-tests))
-
-
-
 
 (spec/explain ::hgt "150cm")
 (spec/valid? ::hgt "150cm")
 
-
 (as-> [[1 2 3 4 5] [1]] i
-(first i)
-(map #(* % %) i))
-
+  (first i)
+  (map #(* % %) i))
 
 (keys {::cid "280"})

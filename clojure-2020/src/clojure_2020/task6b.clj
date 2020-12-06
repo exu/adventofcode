@@ -4,7 +4,6 @@
             [clojure.test :refer [run-tests is are deftest]]
             [clojure.spec.alpha :as spec]))
 
-
 (defn calulate-group-occurrences [group]
   (as-> group data
     (for [e data] (zipmap e (repeat (count e) 1)))     ; {"y" 1, "m" 1, "w" 1}
@@ -20,8 +19,7 @@
   (map calulate-group-occurrences data)
   (map filter-value-equals-count data)
   (map count data)
-  (reduce + data)
-  )
+  (reduce + data))
 
 
 

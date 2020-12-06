@@ -59,13 +59,13 @@
 ;; As a sanity check, look through your list of boarding passes. What
 ;; is the highest seat ID on a boarding pass?
 
+
 (do
   (defn split
     ([directions]
      (split (range 128) (range 8) directions))
     ([rows cols directions]
-     (let [
-           rows-split (split-at (/ (count rows) 2) rows)
+     (let [rows-split (split-at (/ (count rows) 2) rows)
            cols-split (split-at (/ (count cols) 2) cols)
            dir (first directions)
 
@@ -76,14 +76,12 @@
            rows-half (cond
                        (= dir :F) (get rows-split 0)
                        (= dir :B) (get rows-split 1)
-                       :else rows
-                       )
+                       :else rows)
 
            cols-half (cond
                        (= dir :L) (get cols-split 0)
                        (= dir :R) (get cols-split 1)
-                       :else cols
-                       )
+                       :else cols)
 
            ;; _ (println "Rows half " rows-half)
            ;; _ (println "Cols half" cols-half)
@@ -94,8 +92,7 @@
 
        (if (> (count directions) 1)
          (recur rows-half cols-half (rest directions))
-         {:row (first rows-half) :col (first cols-half)}
-         ))))
+         {:row (first rows-half) :col (first cols-half)}))))
 
   (split [:B :F :F :F :B :B :F :R :R :R])
 
@@ -107,30 +104,26 @@
   (defn parse [in]
     (as-> in i
       (s/split i #"")
-      (map keyword i) ))
-
+      (map keyword i)))
 
   (def seats (->> (slurp "resources/task5.txt")
-       (s/split-lines)
-       (map parse)
-       (map split)
-       (map #(assoc % :id (calculate-id %)))
-       ))
+                  (s/split-lines)
+                  (map parse)
+                  (map split)
+                  (map #(assoc % :id (calculate-id %)))))
 
-   (def row-with-missing-seat (->> seats
-       (group-by :row)
-       (map second)
-       (map (fn [n] {:row ((get n 0) :row) :count (count n)} ))
-       (filter #(< (% :count) 8))
-       first
-       :row
-       ))
+  (def row-with-missing-seat (->> seats
+                                  (group-by :row)
+                                  (map second)
+                                  (map (fn [n] {:row ((get n 0) :row) :count (count n)}))
+                                  (filter #(< (% :count) 8))
+                                  first
+                                  :row))
 
-   (->> seats
-        (filter #(= (% :row) row-with-missing-seat))
-        (sort-by :col)
-        (pprint)
-        )
+  (->> seats
+       (filter #(= (% :row) row-with-missing-seat))
+       (sort-by :col)
+       (pprint))
 
    ;; 629 :) is missing one
 

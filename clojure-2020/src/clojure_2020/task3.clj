@@ -3,17 +3,13 @@
   (:gen-class)
   (:require [clojure.string :as s]))
 
-
-
 (defn read-file [filename]
   (with-open [rdr (clojure.java.io/reader filename)]
     (->> rdr
          line-seq
-         vec
-         )))
+         vec)))
 
-(let [
-      tree? #(= \# %1)
+(let [tree? #(= \# %1)
       lines (read-file "resources/task3.txt")
       width (count (nth lines 0))
       positions  (iterate #(mod (+ 3 %1) width) 0)    ;;  jumps by 3 for each row
@@ -21,11 +17,9 @@
       trees (filter tree? spots)
       trees-count (count trees)
       free (filter #(not (tree? %)) spots)
-      free-count (count free)
-      ]
+      free-count (count free)]
 
-  [trees-count free-count]
-  )
+  [trees-count free-count])
 
 
 ;; PART 2
@@ -37,20 +31,19 @@
 ;; Right 5, down 1.
 ;; Right 7, down 1.
 ;; Right 1, down 2.
+
+
 (def lines (read-file "resources/task3.txt"))
 
 (defn count-trees [lines steps-right]
-  (let [
-        tree?       #(= \# %1)
+  (let [tree?       #(= \# %1)
         width       (count (nth lines 0))
         positions   (iterate #(mod (+ steps-right %1) width) 0) ;;  jumps by given step for each row
         spots       (map nth lines positions)
         trees       (filter tree? spots)
-        trees-count (count trees)
-        ]
+        trees-count (count trees)]
 
     trees-count))
-
 
 (*
  (count-trees lines 1)
@@ -67,6 +60,8 @@
 ;; nth "dupa" 1
 ;; nth "lampa" 2
 ;; nth "pampa" 3
+
+
 (map nth
      ["dupa", "lampa", "pampa"]
      [1 2 3])
