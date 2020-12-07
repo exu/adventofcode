@@ -2,6 +2,7 @@
 (ns clojure-2020.core
   (:gen-class)
   (:require [clojure.string :as s]))
+ 
 
 
 ;; first try "na pałę" but for those 2 nums there is almost no difference

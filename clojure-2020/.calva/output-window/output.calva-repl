@@ -1,0 +1,168 @@
+; This is the Calva evaluation results output window.
+; TIPS: The keyboard shortcut `ctrl+alt+c o` shows and focuses this window
+;   when connected to a REPL session.
+; Please see https://calva.io/output/ for more info.
+; Happy coding! ♥️
+
+; Jacking in...
+; Hooking up nREPL sessions...
+; Connected session: clj
+; TIPS: 
+;   - You can edit the contents here. Use it as a REPL if you like.
+;   - `alt+enter` evaluates the current top level form.
+;   - `ctrl+enter` evaluates the current form.
+;   - `alt+up` and `alt+down` traverse up and down the REPL command history
+;      when the cursor is after the last contents at the prompt
+;   - Clojure lines in stack traces are peekable and clickable.
+clj::clojure-2020.core=> 
+
+; Jack-in done.
+clj::clojure-2020.core=> 
+; Syntax error compiling at (src/clojure_2020/task1.clj:37:15).
+; Unable to resolve symbol: read2 in this context
+clojure.lang.Compiler/analyze (Compiler.java:6808)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3820)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler/access$300 (Compiler.java:38)
+clojure.lang.Compiler$LetExpr$Parser/parse (Compiler.java:6384)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7107)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$BodyExpr$Parser/parse (Compiler.java:6120)
+clojure.lang.Compiler$FnMethod/parse (Compiler.java:5467)
+clojure.lang.Compiler$FnExpr/parse (Compiler.java:4029)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7105)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler/eval (Compiler.java:7174)
+clojure.core/eval (core.clj:3214)
+clojure.core/eval (core.clj:3210)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.core/apply (core.clj:665)
+clojure.core/with-bindings* (core.clj:1973)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.main/repl (main.clj:437)
+clojure.main/repl (main.clj:458)
+clojure.main/repl (main.clj:368)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:84)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:56)
+nrepl.middleware.interruptible-eval/interruptible-eval (interruptible_eval.clj:152)
+nrepl.middleware.session/session-exec (session.clj:202)
+nrepl.middleware.session/session-exec (session.clj:201)
+java.lang.Thread/run (Thread.java:832)
+clj::clojure-2020.core=> 
+; Syntax error compiling at (src/clojure_2020/task1.clj:37:15).
+; Unable to resolve symbol: read2 in this context
+clojure.lang.Compiler/analyze (Compiler.java:6808)
+clojure.lang.Compiler$InvokeExpr/parse (Compiler.java:3820)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7109)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler/access$300 (Compiler.java:38)
+clojure.lang.Compiler$LetExpr$Parser/parse (Compiler.java:6384)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7107)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler$BodyExpr$Parser/parse (Compiler.java:6120)
+clojure.lang.Compiler$FnMethod/parse (Compiler.java:5467)
+clojure.lang.Compiler$FnExpr/parse (Compiler.java:4029)
+clojure.lang.Compiler/analyzeSeq (Compiler.java:7105)
+clojure.lang.Compiler/analyze (Compiler.java:6789)
+clojure.lang.Compiler/eval (Compiler.java:7174)
+clojure.core/eval (core.clj:3214)
+clojure.core/eval (core.clj:3210)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.core/apply (core.clj:665)
+clojure.core/with-bindings* (core.clj:1973)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:87)
+clojure.main/repl (main.clj:437)
+clojure.main/repl (main.clj:458)
+clojure.main/repl (main.clj:368)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:84)
+nrepl.middleware.interruptible-eval/evaluate (interruptible_eval.clj:56)
+nrepl.middleware.interruptible-eval/interruptible-eval (interruptible_eval.clj:152)
+nrepl.middleware.session/session-exec (session.clj:202)
+nrepl.middleware.session/session-exec (session.clj:201)
+java.lang.Thread/run (Thread.java:832)
+clj::clojure-2020.core=> 
+nil
+clj::clojure-2020.core=> 
+#'clojure-2020.core/read1
+clj::clojure-2020.core=> 
+([1611 409])
+clj::clojure-2020.core=> 
+1232131
+clj::clojure-2020.core=> 
+1232131
+clj::clojure-2020.core=> 
+1232131
+clj::clojure-2020.core=> 
+1232131
+clj::clojure-2020.core=> 
+1232131
+clj::clojure-2020.core=> 
+#'clojure-2020.core/read1
+clj::clojure-2020.core=> 
+(1650
+ 1174
+ 1156
+ 1874
+ 1958
+ 1918
+ 1980
+ 1588
+ 1863
+ 1656
+ 1843
+ 1738
+ 2001
+ 1883
+ 1941
+ 1602
+ 1881
+ 1927
+ 1284
+ 1474
+ 1942
+ 1992
+ 1925
+ 1990
+ 1831
+ 1907
+ 1914
+ 1815
+ 1921
+ 1589
+ 1224
+ 1148
+ 1223
+ 935
+ 1726
+ 1828
+ 1838
+ 1611
+ 1960
+ 1668
+ 1744
+ 1566
+ 1902
+ 1203
+ 1975
+ 1225
+ 2000
+ 1678
+ 1950
+ 572
+ ...)
+clj::clojure-2020.core=> 
+([1611 409])
+clj::clojure-2020.core=> 
+#'clojure-2020.core/read2
+clj::clojure-2020.core=> 
+([1611 409])
+clj::clojure-2020.core=> 
+([1611 409])
+clj::clojure-2020.core=> 
+([1611 409])
+clj::clojure-2020.core=> 
+([1611 409])
+clj::clojure-2020.core=> 
+([1611 409])
+clj::clojure-2020.core=> 
