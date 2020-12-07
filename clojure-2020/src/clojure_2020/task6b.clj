@@ -14,7 +14,7 @@
 
 (as-> (slurp "resources/task6.txt") data
   (s/split data #"\n\n")                    ; split groups
-  (map #(s/split-lines %) data)             ; split lines in each groups
+  (map s/split-lines data)             ; split lines in each group
   (for [el data] (map #(s/split % #"") el)) ; split internal array elems
   (map calulate-group-occurrences data)
   (map filter-value-equals-count data)

@@ -60,77 +60,74 @@
 ;; is the highest seat ID on a boarding pass?
 
 
-(do
-  (defn split
-    ([directions]
-     (split (range 128) (range 8) directions))
-    ([rows cols directions]
-     (let [rows-split (split-at (/ (count rows) 2) rows)
-           cols-split (split-at (/ (count cols) 2) cols)
-           dir (first directions)
+(defn split
+  ([directions]
+   (split (range 128) (range 8) directions))
+  ([rows cols directions]
+   (let [rows-split (split-at (/ (count rows) 2) rows)
+         cols-split (split-at (/ (count cols) 2) cols)
+         dir (first directions)
 
-           ;; _ (println "Input cols" cols-split)
-           ;; _ (println "Input rows" rows-split)
-           ;; _ (println "Direction" dir)
+         ;; _ (println "Input cols" cols-split)
+         ;; _ (println "Input rows" rows-split)
+         ;; _ (println "Direction" dir)
 
-           rows-half (cond
-                       (= dir :F) (get rows-split 0)
-                       (= dir :B) (get rows-split 1)
-                       :else rows)
+         rows-half (cond
+                     (= dir :F) (get rows-split 0)
+                     (= dir :B) (get rows-split 1)
+                     :else rows)
 
-           cols-half (cond
-                       (= dir :L) (get cols-split 0)
-                       (= dir :R) (get cols-split 1)
-                       :else cols)
+         cols-half (cond
+                     (= dir :L) (get cols-split 0)
+                     (= dir :R) (get cols-split 1)
+                     :else cols)
 
-           ;; _ (println "Rows half " rows-half)
-           ;; _ (println "Cols half" cols-half)
-           ;; _ (println )
-           ;; _ (println )
-           ;; _ (Thread/sleep 1000)
-           ]
+         ;; _ (println "Rows half " rows-half)
+         ;; _ (println "Cols half" cols-half)
+         ;; _ (println )
+         ;; _ (println )
+         ;; _ (Thread/sleep 1000)
+         ]
 
-       (if (> (count directions) 1)
-         (recur rows-half cols-half (rest directions))
-         {:row (first rows-half) :col (first cols-half)}))))
+     (if (> (count directions) 1)
+       (recur rows-half cols-half (rest directions))
+       {:row (first rows-half) :col (first cols-half)}))))
 
-  (split [:B :F :F :F :B :B :F :R :R :R])
+(split [:B :F :F :F :B :B :F :R :R :R])
 
-  ;; Every seat also has a unique seat ID: multiply the row by 8, then
-  ;; add the column. In this example, the seat has ID 44 * 8 + 5 = 357.
-  (defn calculate-id [in]
-    (+ (* 8 (in :row)) (in :col)))
+;; Every seat also has a unique seat ID: multiply the row by 8, then
+;; add the column. In this example, the seat has ID 44 * 8 + 5 = 357.
+(defn calculate-id [in]
+  (+ (* 8 (in :row)) (in :col)))
 
-  (defn parse [in]
-    (as-> in i
-      (s/split i #"")
-      (map keyword i)))
+(defn parse [in]
+  (as-> in i
+    (s/split i #"")
+    (map keyword i)))
 
-  (->> (slurp "resources/task5.txt")
-       (s/split-lines)
-    ;; (take 3 pass)
-       (map parse)
-       (map split)
-       (map calculate-id)
-       (apply max))
+(->> (slurp "resources/task5.txt")
+     (s/split-lines)
+     ;; (take 3 pass)
+     (map parse)
+     (map split)
+     (map calculate-id)
+     (apply max))
 
-  (deftest parse-test
-    (is (= [:B :F :F :F :B :B :F :R :R :R] (parse "BFFFBBFRRR")))
-    (is (= [:B :B :F :F :B :B :F :R :L :L] (parse "BBFFBBFRLL"))))
+(deftest parse-test
+  (is (= [:B :F :F :F :B :B :F :R :R :R] (parse "BFFFBBFRRR")))
+  (is (= [:B :B :F :F :B :B :F :R :L :L] (parse "BBFFBBFRLL"))))
 
-  ;; BFFFBBFRRR: row 70, column 7, seat ID 567.
-  ;; FFFBBBFRRR: row 14, column 7, seat ID 119.
-  ;; BBFFBBFRLL: row 102, column 4, seat ID 820.
+;; BFFFBBFRRR: row 70, column 7, seat ID 567.
+;; FFFBBBFRRR: row 14, column 7, seat ID 119.
+;; BBFFBBFRLL: row 102, column 4, seat ID 820.
 
 
-  (deftest split-test
-    (is (= {:row 70 :col 7} (split (parse "BFFFBBFRRR"))))
-    (is (= {:row 14 :col 7} (split (parse "FFFBBBFRRR"))))
-    (is (= {:row 102 :col 4} (split (parse "BBFFBBFRLL")))))
+(deftest split-test
+  (is (= {:row 70 :col 7} (split (parse "BFFFBBFRRR"))))
+  (is (= {:row 14 :col 7} (split (parse "FFFBBBFRRR"))))
+  (is (= {:row 102 :col 4} (split (parse "BBFFBBFRLL")))))
 
-  (deftest id-test
-    (is (= 567 (calculate-id {:row 70 :col 7})))
-    (is (= 119 (calculate-id {:row 14 :col 7})))
-    (is (= 820 (calculate-id {:row 102 :col 4}))))
-
-  (run-tests))
+(deftest id-test
+  (is (= 567 (calculate-id {:row 70 :col 7})))
+  (is (= 119 (calculate-id {:row 14 :col 7})))
+  (is (= 820 (calculate-id {:row 102 :col 4}))))
